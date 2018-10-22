@@ -2,15 +2,15 @@ const defaults = {
   parent: window,
   element: null,
   offset: 0,
-  scrollIn: function() {
-    document.querySelector(this.element).classList.add('scrolled');
+  scrollIn: function () {
+    console.info('Scroll in element');
   },
-  scrollOut: function() {
-    document.querySelector(this.element).classList.remove('scrolled');
+  scrollOut: function () {
+    console.info('Scroll out element');
   }
 };
 
-class ScrollOn {
+export default class ScrollOn {
   constructor(options) {
     this.option = Object.assign(defaults, options);
     this.listener = this.listener.bind(this);
@@ -51,5 +51,3 @@ class ScrollOn {
     document.removeEventListener('scroll', this.listener);
   }
 }
-
-module.exports = ScrollOn;
