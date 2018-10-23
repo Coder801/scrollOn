@@ -10,16 +10,28 @@ const defaults = {
   }
 };
 
-export default class ScrollOn {
+class ScrollOn {
   constructor(options) {
     this.option = Object.assign(defaults, options);
     this.listener = this.listener.bind(this);
     this.scrollTop = 0;
     this.elementTop = this.getElementTop(this.option.element);
+    this.changeEvent = new Event('changeEvent');
     if (this.elementTop) {
       this.recountScroll(this.option.parent);
       this.init();
     }
+  }
+
+  getTopCordinats(element) {
+    const box = element.getBoundingClientRect();
+    const body = document.body;
+    const documentElement = document.documentElement;
+    const scrollTop = window.pageYOffset || documentElement.scrollTop || body.scrollTop;
+    const clientTop = documentElement.clientTop || body.clientTop || 0;
+    const top = box.top + scrollTop - clientTop;
+
+    return Math.round(top);
   }
 
   recountScroll(parent) {
@@ -29,9 +41,26 @@ export default class ScrollOn {
   getElementTop(element) {
     const elementNode = document.querySelector(element);
     if (elementNode) {
-      return Math.round(elementNode.getBoundingClientRect().top);
+      return Math.round(this.getTopCordinats(elementNode));
     }
     return false;
+  }
+
+  cancelableFunction() {
+    const bufferFunc = func;
+    const wrapper = (...args) => {
+      if (func) return func.apply(this, args);
+    };
+
+    wrapper.cancel = () => {
+      func = null;
+    };
+
+    wrapper.reload = () => {
+      func = bufferFunc;
+    };
+
+    return wrapper;
   }
 
   listener() {
