@@ -10,13 +10,40 @@ const defaults = {
   }
 };
 
+class ToggleFunctionManager {
+  constructor(...callbacks) {
+    this.cache = null;
+    this.callbacks = callbacks.map(callback => {
+      return {
+        called: false,
+        name: callback.name,
+        callback
+      };
+    });
+  }
+
+  call(func) {
+    if (func && func.name && func.name !== this.cache) {
+      const callback = this.callbacks.find(item => item.name === func.name);
+      if (!callback.called) {
+        this.callbacks.forEach(item => {
+          item.called = false;
+        });
+        callback.callback();
+        callback.called = true;
+        this.cache = callback.name;
+      }
+    }
+  }
+}
+
 class ScrollOn {
   constructor(options) {
     this.option = Object.assign(defaults, options);
     this.listener = this.listener.bind(this);
     this.scrollTop = 0;
     this.elementTop = this.getElementTop(this.option.element);
-    this.changeEvent = new Event('changeEvent');
+    this.toggleFunctionManager = new ToggleFunctionManager(this.option.scrollIn, this.option.scrollOut);
     if (this.elementTop) {
       this.recountScroll(this.option.parent);
       this.init();
@@ -46,29 +73,12 @@ class ScrollOn {
     return false;
   }
 
-  cancelableFunction() {
-    const bufferFunc = func;
-    const wrapper = (...args) => {
-      if (func) return func.apply(this, args);
-    };
-
-    wrapper.cancel = () => {
-      func = null;
-    };
-
-    wrapper.reload = () => {
-      func = bufferFunc;
-    };
-
-    return wrapper;
-  }
-
   listener() {
     this.recountScroll(this.option.parent);
     if (this.scrollTop >= this.elementTop) {
-      this.option.scrollIn();
+      this.toggleFunctionManager.call(this.option.scrollIn);
     } else {
-      this.option.scrollOut();
+      this.toggleFunctionManager.call(this.option.scrollOut);
     }
   }
 
