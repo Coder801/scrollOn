@@ -3,11 +3,13 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    index: './src/index.js'
+    scrollOn: './src/index.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    library: 'ScrollOn'
   },
   mode: this.mode,
   module: {

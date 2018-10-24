@@ -2,10 +2,11 @@
   "name": "scrollon",
   "version": "1.0.1",
   "description": "",
-  "main": "src/index.js",
-  "dependencies": {
-    "webpack-cli": "^3.1.2"
-  },
+  "main": "dist/scrollOn.js",
+  "files": [
+    "src/index.js",
+    "dist/scrollOn.js"
+  ],
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-transform-function-name": "^7.1.0",
@@ -20,7 +21,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^1.1.2",
     "uglifyjs-webpack-plugin": "^2.0.1",
-    "webpack": "^4.22.0"
+    "webpack": "^4.22.0",
+    "webpack-cli": "^3.1.2"
   },
   "scripts": {
     "build": "webpack --mode=production",

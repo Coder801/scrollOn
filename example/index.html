@@ -12,20 +12,18 @@
     <div class="header">Header</div>
     <div class="block">Block</div>
   </div>
-  <script src="../src/index.js"></script>
+  <script src="../dist/scrollOn.js"></script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const scrollOn = new ScrollOn({
-        element: '.block',
-        scrollIn: function () {
-          console.info('Scroll in element');
-        },
-        scrollOut: function () {
-          console.info('Scroll out element');
-        }
-      })
-    })
+    const scrollOn = new ScrollOn({
+      element: '.block',
+      scrollIn: function () {
+        console.info('Scroll in element');
+      },
+      scrollOut: function () {
+        console.info('Scroll out element');
+      }
+    });
   </script>
 </body>
 </html>
