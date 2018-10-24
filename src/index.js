@@ -37,7 +37,7 @@ class ToggleFunctionManager {
   }
 }
 
-class ScrollOn {
+export default class ScrollOn {
   constructor(options) {
     this.option = Object.assign(defaults, options);
     this.listener = this.listener.bind(this);
