@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -8,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
   },
-  mode: 'production',
+  mode: this.mode,
   module: {
     rules: [
       {
@@ -27,5 +28,14 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  devtool: false,
+  watch: false,
+  watchOptions: {
+    ignored: /node_modules/
+  },
+  plugins:
+    this.mode === 'production'
+      ? [new UglifyJSPlugin() || new BabelMinifyPlugin()]
+      : [new webpack.SourceMapDevToolPlugin()]
 };
