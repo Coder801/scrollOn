@@ -1,6 +1,6 @@
 {
   "name": "scrollon",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "dist/scrollOn.js",
   "files": [
