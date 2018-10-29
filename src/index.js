@@ -37,7 +37,7 @@ class ToggleFunctionManager {
   }
 }
 
-export default class ScrollOn {
+class ScrollOn {
   constructor(options) {
     this.option = Object.assign(defaults, options);
     this.listener = this.listener.bind(this);
@@ -90,3 +90,5 @@ export default class ScrollOn {
     document.removeEventListener('scroll', this.listener);
   }
 }
+
+module.exports = ScrollOn;
