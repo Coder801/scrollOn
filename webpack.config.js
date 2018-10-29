@@ -8,9 +8,7 @@ module.exports = env => {
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].js',
-      libraryTarget: 'var',
-      library: 'ScrollOn'
+      filename: '[name].js'
     },
     mode: this.mode,
     module: {
